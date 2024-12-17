@@ -13,6 +13,7 @@ function FinanceScreen() {
   const [summaryAmount, setSummaryAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
   const [transactionData, setTransactionData] = useState([])
+  const [editingItem, setEditingItem] = useState(null);
 
   const fetchItems = async () => {
     try {
@@ -66,6 +67,15 @@ function FinanceScreen() {
     }
   }
 
+  const handleEditItem = async (record) => {
+
+    console.log('Edit item:', record);
+      
+    setEditingItem(record);
+  }
+
+
+
   useEffect(() => {
     fetchItems()
   }, [])
@@ -91,7 +101,8 @@ function FinanceScreen() {
           <TransactionList
             data={transactionData}
             onNoteChanged={handleNoteChanged}
-            onRowDeleted={handleRowDeleted} />
+            onRowDeleted={handleRowDeleted} 
+            onEditItem={handleEditItem} />
         </Spin>
       </header>
     </div>
