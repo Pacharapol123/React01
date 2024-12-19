@@ -35,11 +35,10 @@ export default function TransactionList(props) {
           </Popconfirm>
           <Button
           type="primary"
-          ghost
+          shape="circle"
           icon={<EditOutlined />}
           onClick={() => props.onEditItem(record)}
           >
-          Edit
         </Button>
         </Space >
       ),
