@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Table, Space, Tag, Popconfirm, Modal, Flex } from "antd";
+import { Button, Table, Space, Tag, Popconfirm} from "antd";
 import { DeleteOutlined, BugOutlined, EditOutlined } from '@ant-design/icons';
 import dayjs from "dayjs";
 
@@ -48,7 +48,7 @@ export default function TransactionList(props) {
 
 return (
   <>
-    <Table columns={columns} dataSource={props.data} rowkey="id"/>
+    <Table columns={columns} dataSource={props.data} />
   </>
 )
 }

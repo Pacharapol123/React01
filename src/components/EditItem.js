@@ -1,6 +1,19 @@
-import { Button, Form, Select, Input, InputNumber, Modal, Form } from 'antd';
+import { Button, Form, Select, Input, InputNumber, Modal} from 'antd';
+import { useEffect } from 'react';
 
 export default function EditItem(props) {
+    const [form] = Form.useForm();
+    useEffect(() => {
+        if (props.IsOpen && props.item) {
+            form.setFieldsValue(props.Item)
+        }
+    });
+    const handleformSubmit = () => {
+        form.validateFields().then(formData => {
+            props.onEditItem(formData);
+            props.onClose();
+        })
+    }
     return (
     <Form layout="inline" onFinish={props.onEditItem}>
       <Form.Item
