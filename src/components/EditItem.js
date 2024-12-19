@@ -15,6 +15,14 @@ export default function EditItem(props) {
         })
     }
     return (
+    <Modal
+    title="แก้ไขรายการ"
+    open={props.isOpen}        
+    onOk={handleformSubmit}     
+    onCancel={props.onClose}    
+    okText="บันทึก"
+    cancelText="ยกเลิก"
+  >
     <Form layout="inline" onFinish={props.onEditItem}>
       <Form.Item
         name="type"
@@ -55,6 +63,8 @@ export default function EditItem(props) {
         <Button type="primary" htmlType="submit">Edit</Button>
       </Form.Item>
     </Form>
+    </Modal>
     )
+
 }
 
