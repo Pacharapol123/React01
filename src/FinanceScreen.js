@@ -6,6 +6,7 @@ import { Divider } from 'antd';
 import AddItem from './components/AddItem';
 import { Spin, Typography } from 'antd';
 import axios from 'axios'
+import EditItem from './components/EditItem';
 
 const URL_TXACTIONS = '/api/txactions'
 
@@ -67,10 +68,7 @@ function FinanceScreen() {
     }
   }
 
-  const handleEditItem = async (record) => {
-
-    console.log('Edit item:', record);
-      
+  const handleEditItem = (record) => {
     setEditingItem(record);
   }
 
@@ -97,12 +95,13 @@ function FinanceScreen() {
           </Typography.Title>
 
           <AddItem onItemAdded={handleAddItem} />
+          
           <Divider>บันทึก รายรับ - รายจ่าย</Divider>
           <TransactionList
             data={transactionData}
             onNoteChanged={handleNoteChanged}
-            onRowDeleted={handleRowDeleted} 
-            onEditItem={handleEditItem} />
+            onRowDeleted={handleRowDeleted}
+          />
         </Spin>
       </header>
     </div>
