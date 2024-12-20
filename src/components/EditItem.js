@@ -1,70 +1,70 @@
-import { Button, Form, Select, Input, InputNumber, Modal} from 'antd';
+import { Form, Select, Input, InputNumber, Modal } from 'antd';
 import { useEffect } from 'react';
 
-export default function EditItem(props) {
-    const [form] = Form.useForm();
-    useEffect(() => {
-        if (props.IsOpen && props.item) {
-            form.setFieldsValue(props.Item)
-        }
-    });
-    const handleformSubmit = () => {
-        form.validateFields().then(formData => {
-            props.onEditItem(formData);
-            props.onClose();
-        })
+export default function EditItem({ isOpen, item, onClose, onItemEdited }) {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (isOpen && item) {
+      form.setFieldsValue(item)
     }
-    return (
+  }, [isOpen, item, form]);
+
+  const handleFormSubmit = () => {
+    form.validateFields().then(formData => {
+      onItemEdited({ ...item, ...formData });
+      onClose();
+    })
+  }
+
+  return (
     <Modal
-    title="แก้ไขรายการ"
-    open={props.isOpen}        
-    onOk={handleformSubmit}     
-    onCancel={props.onClose}    
-    okText="บันทึก"
-    cancelText="ยกเลิก"
-  >
-    <Form layout="inline" onFinish={props.onEditItem}>
-      <Form.Item
-        name="type"
-        label="ชนิด"
-        rules={[{ required: true }]}
+      title="แก้ไขรายการ"
+      open={isOpen}
+      onOk={handleFormSubmit}
+      onCancel={onClose}
+      okText="บันทึก"
+      cancelText="ยกเลิก"
+    >
+      <Form
+        form={form}
+        layout="horizontal"
+        labelAlign='left'
       >
-        <Select
-          allowClear
-          style={{ width: "100px" }}
-          options={[
-            {
-              value: 'income',
-              label: 'รายรับ',
-            },
-            {
-              value: 'expense',
-              label: 'รายจ่าย',
-            },
-          ]}
-        />
-      </Form.Item>
+        <Form.Item
+          name="type"
+          label="ชนิด"
+          rules={[{ required: true }]}
+        >
+          <Select
+            allowClear
+            style={{ width: "25%" }}
+            options={[
+              { value: 'income', label: 'รายรับ' },
+              { value: 'expense', label: 'รายจ่าย' }
+            ]}
+          />
+        </Form.Item>
 
-      <Form.Item
-        name="amount"
-        label="จำนวนเงิน"
-        rules={[{ required: true }]}>
-        <InputNumber placeholder="จำนวนเงิน" />
-      </Form.Item>
+        <Form.Item
+          name="amount"
+          label="จำนวนเงิน"
+          rules={[{ required: true }]}
+        >
+          <InputNumber
+            placeholder="จำนวนเงิน"
+            style={{ width: "20%" }}
+          />
+        </Form.Item>
 
-      <Form.Item
-        name="note"
-        label="หมายเหตุ"
-        rules={[{ required: true }]}>
-        <Input placeholder="Note" />
-      </Form.Item>
-      
-      <Form.Item>
-        <Button type="primary" htmlType="submit">Edit</Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          name="note"
+          label="หมายเหตุ"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="หมายเหตุ" />
+        </Form.Item>
+      </Form>
     </Modal>
-    )
-
+  )
 }
-

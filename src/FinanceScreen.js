@@ -86,6 +86,7 @@ function FinanceScreen() {
   }
 
   const handleEditItem = (record) => {
+    console.log("Editing record:", record);
     setEditingItem(record);
   }
 
@@ -112,11 +113,18 @@ function FinanceScreen() {
           </Typography.Title>
 
           <AddItem onItemAdded={handleAddItem} />
+          <EditItem
+            isOpen = {editingItem !== null}
+            item = {editingItem}
+            onClose = {() => setEditingItem(null)}
+            onItemEdited = {updateItem}
+          />
           <Divider>บันทึก รายรับ - รายจ่าย</Divider>
           <TransactionList
             data={transactionData}
             onNoteChanged={handleNoteChanged}
             onRowDeleted={handleRowDeleted}
+            onEditItem = {handleEditItem}
           />
         </Spin>
       </header>
