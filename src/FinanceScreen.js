@@ -27,9 +27,22 @@ function FinanceScreen() {
       })))
     } catch (err) {
       console.log(err)
-    } finally { setIsLoading(false) }
+    } finally { setIsLoading(false) };
   }
 
+  const updateItem = async (item) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`${URL_TXACTIONS}/${item.id}`, {
+        data: item
+      });
+      setTransactionData(currentData => currentData.map(transaction.id === item.id ? item : transaction));
+      setEditingItem(null);
+    } catch (err) {
+      console.log(err)
+    } finally { setIsLoading(false) };
+  }
+  
   const handleAddItem = async (item) => {
     try {
       setIsLoading(true)
@@ -95,7 +108,7 @@ function FinanceScreen() {
           </Typography.Title>
 
           <AddItem onItemAdded={handleAddItem} />
-          
+
           <Divider>บันทึก รายรับ - รายจ่าย</Divider>
           <TransactionList
             data={transactionData}
