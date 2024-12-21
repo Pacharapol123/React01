@@ -16,9 +16,9 @@ export default function LoginScreen(props) {
       const response = await axios.post(URL_AUTH, { ...formData })
       const token = response.data.jwt
       if (formData.Remember) {
-        localStorage.setItem('auth token', token)
+          localStorage.setItem('auth token', token)
       } else {
-        sessionStorage.setItem('auth token', token)
+          sessionStorage.setItem('auth token', token)
       }
       axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
       props.onLoginSuccess();
@@ -55,7 +55,7 @@ export default function LoginScreen(props) {
       </Form.Item>
       <Form.Item
         name="Remember"
-        valuePropName='Checked'>
+        valuePropName='checked'>
         <Checkbox>
           Remember Me
         </Checkbox>
